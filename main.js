@@ -24,18 +24,28 @@ game = {
     keepPromptingUser: function() {
         var self = this;
         prompt.get(['guessLetter'], function(err, result) {
-            if (self.userGuessedLetters.indexOf(result.guessLetter) < 0) {
-                self.userGuessedLetters.push(result.guessLetter);
-            } else {
-            	console.log("You already guessed that letter!");
-            }
-            console.log('  The letter or space you guessed is: ' + result.guessLetter);
+            // if (self.userGuessedLetters.indexOf(result.guessLetter) < 0) {
+            //     self.userGuessedLetters.push(result.guessLetter);
+            // } else {
+            // 	console.log("You already guessed that letter!");
+            // }
+            console.log("The letter or space you guessed is: " + result.guessLetter);
             var findHowManyOfUserGuess = self.currentWrd.checkIfLetterFound(result.guessLetter);
             if (findHowManyOfUserGuess == 0) {
-                console.log('You guessed wrong!');
-                self.guessesRemaining--;
+            	if (self.userGuessedLetters.indexOf(result.guessLetter) < 0) {
+                	self.userGuessedLetters.push(result.guessLetter);
+                	self.guessesRemaining--;
+                	console.log("You guessed a wrong letter!");
+                } else {
+                	console.log("You've already guessed this letter!");
+                }
             } else {
-                console.log('You guessed right!');
+                if (self.userGuessedLetters.indexOf(result.guessLetter) < 0) {
+                	self.userGuessedLetters.push(result.guessLetter);
+                	console.log('You guessed right!');
+                } else {
+                	console.log("You've already guessed this letter!");	
+                }
                 if (self.currentWrd.didWeFindTheWord()) {
                     console.log('You Won!!!');
                     return; //end game
