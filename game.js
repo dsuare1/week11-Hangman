@@ -1,3 +1,5 @@
-var game = ["austin", "san marcos", "waco", "dallas", "el paso", "houston", "beaumont", "orange", "san antonio", "galveston"];
+var Game = {
+    wordBank: ["austin", "san marcos", "waco", "dallas", "el paso", "houston", "beaumont", "orange", "san antonio", "galveston"]
+}
 
-module.exports = game;
+exports.Game = Game;
