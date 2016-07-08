@@ -1,0 +1,16 @@
+{
+  "name": "console-hangman",
+  "version": "1.0.0",
+  "description": "Hangman in the console!",
+  "main": "game.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Derrick Suarez",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^1.1.1",
+    "prompt": "^1.0.0"
+  },
+  "devDependencies": {}
+}
