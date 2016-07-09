@@ -1,6 +1,16 @@
-var prompt = require('prompt');
-var Word = require('./word.js');
+var prompt = require("prompt");
+var Word = require("./word.js");
 var Game = require("./game.js");
+
+var schema = {
+    properties: {
+        guessLetter: {
+            pattern: /[a-z]/,
+            message: "Name must be only letters",
+            required: true
+        }
+    }
+};
 
 prompt.start();
 
@@ -23,42 +33,42 @@ game = {
     },
     keepPromptingUser: function() {
         var self = this;
-        prompt.get(['guessLetter'], function(err, result) {
-            // if (self.userGuessedLetters.indexOf(result.guessLetter) < 0) {
-            //     self.userGuessedLetters.push(result.guessLetter);
-            // } else {
-            // 	console.log("You already guessed that letter!");
-            // }
+        prompt.get(schema, function(err, result) {
+        	console.log("\n---------------------------------------------------------");
             console.log("The letter or space you guessed is: " + result.guessLetter);
+            console.log("---------------------------------------------------------\n");
             var findHowManyOfUserGuess = self.currentWrd.checkIfLetterFound(result.guessLetter);
             if (findHowManyOfUserGuess == 0) {
-            	if (self.userGuessedLetters.indexOf(result.guessLetter) < 0) {
-                	self.userGuessedLetters.push(result.guessLetter);
-                	self.guessesRemaining--;
-                	console.log("You guessed a wrong letter!");
+                if (self.userGuessedLetters.indexOf(result.guessLetter) < 0) {
+                    self.userGuessedLetters.push(result.guessLetter);
+                    self.guessesRemaining--;
+                    console.log("You guessed a wrong letter!");
+                    console.log(":( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( \n");
                 } else {
-                	console.log("You've already guessed this letter!");
+                    console.log("You've already guessed this letter!");
                 }
             } else {
                 if (self.userGuessedLetters.indexOf(result.guessLetter) < 0) {
-                	self.userGuessedLetters.push(result.guessLetter);
-                	console.log('You guessed right!');
+                    self.userGuessedLetters.push(result.guessLetter);
+                    console.log("*********************************************************");
+                    console.log("You guessed right!");
+                    console.log("*********************************************************\n");
                 } else {
-                	console.log("You've already guessed this letter!");	
+                    console.log("You've already guessed this letter!");
                 }
                 if (self.currentWrd.didWeFindTheWord()) {
-                    console.log('You Won!!!');
+                    console.log("You Won!!!");
                     return; //end game
                 }
             }
-            console.log('Guesses remaining: ', self.guessesRemaining);
+            console.log("Guesses remaining: " + self.guessesRemaining + "\n");
             console.log(self.currentWrd.wordRender());
-            console.log('here are the letters you guessed already: ' + self.userGuessedLetters);
+            console.log("\nThese are the letters you guessed already: " + self.userGuessedLetters);
             if ((self.guessesRemaining > 0) && (self.currentWrd.found == false)) {
                 self.keepPromptingUser();
             } else if (self.guessesRemaining == 0) {
-                console.log('Game over bro it was ', self.currentWrd.word);
-                console.log('Get with the program man');
+                console.log("Game over bro it was ", self.currentWrd.word);
+                console.log("Get with the program man");
             } else {
                 console.log(self.currentWrd.wordRender());
             }
