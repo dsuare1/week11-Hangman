@@ -6,7 +6,7 @@ var schema = {
     properties: {
         guessLetter: {
             pattern: /[a-z]/,
-            message: "Name must be only letters",
+            message: "Your entry must be only letters; try again!",
             required: true
         }
     }
